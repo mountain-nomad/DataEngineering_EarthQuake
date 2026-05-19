@@ -27,3 +27,23 @@ CREATE TABLE IF NOT EXISTS ods.fct_earthquake (
     location_source VARCHAR,
     mag_source VARCHAR
 );
+
+
+CREATE TABLE dm.fct_count_day_earthquake AS
+SELECT
+    time::date AS date,
+    count(*)
+FROM ods.fct_earthquake
+WHERE time::date = '2026-05-01'
+GROUP BY 1;
+
+
+CREATE TABLE dm.fct_avg_day_earthquake AS
+SELECT
+    time::date AS date,
+    avg(mag::float)
+FROM
+    ods.fct_earthquake
+WHERE
+    time::date = '2026-05-01'
+GROUP BY 1;
